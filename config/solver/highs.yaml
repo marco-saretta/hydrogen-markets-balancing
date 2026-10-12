@@ -1,0 +1,7 @@
+# Passed straight to HiGHS via linopy's Model.solve(**options), so any HiGHS option name works.
+name: highs
+options:
+  output_flag: true
+  time_limit: 600
+  mip_rel_gap: 0.01
+  threads: 0

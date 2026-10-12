@@ -22,7 +22,7 @@ Early stage. The current model is a skeleton: it builds player, node and system 
 
 ## Setup
 
-Requires Python 3.13 (Hydra 1.3 does not run on 3.14), [uv](https://docs.astral.sh/uv/) and a Gurobi licence.
+Requires Python 3.13 (Hydra 1.3 does not run on 3.14) and [uv](https://docs.astral.sh/uv/). Models are written in [linopy](https://linopy.readthedocs.io/) and solved with the open-source [HiGHS](https://highs.dev/) solver, which `uv sync` installs; no licence is needed.
 
 ```bash
 uv sync                      # creates .venv and installs the package in editable mode
@@ -36,13 +36,14 @@ Each run writes its resolved config, log and `model.lp` to `outputs/<date>/<time
 Settings are managed with [Hydra](https://hydra.cc/) under `config/`:
 
 - `model/default.yaml`: time steps, nodes with capacity bounds, linepack bounds, and players with their nominated position at each node
-- `solver/gurobi.yaml`: Gurobi parameters, passed directly to `setParam`
+- `solver/highs.yaml`: the default solver and its options, passed directly to HiGHS
+- `solver/gurobi.yaml`: optional alternative; needs `uv add gurobipy` and a Gurobi licence, then select it with `solver=gurobi`
 - `paths/default.yaml`: output locations
 
 Any value can be overridden on the command line:
 
 ```bash
-uv run python main.py model.timesteps=168 solver.params.TimeLimit=60
+uv run python main.py model.timesteps=168 solver.options.time_limit=60
 ```
 
 ## Layout
@@ -51,6 +52,6 @@ uv run python main.py model.timesteps=168 solver.params.TimeLimit=60
 main.py                              entry point
 config/                              Hydra configuration
 src/hydrogen_markets_balancing/
-  data_loader.py                     turns the config into bound matrices and tensors
-  model.py                           Gurobi model
+  data_loader.py                     turns the config into labelled bound arrays (time, node, player)
+  model.py                           linopy model
 ```

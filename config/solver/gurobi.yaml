@@ -1,5 +1,7 @@
-# Passed straight to gurobipy via Model.setParam, so any Gurobi parameter name works.
-params:
+# Optional alternative: needs gurobipy and a licence (uv add gurobipy). Select with solver=gurobi.
+# Options are passed straight to Gurobi via linopy's Model.solve(**options).
+name: gurobi
+options:
   OutputFlag: 1
   TimeLimit: 600
   MIPGap: 0.01

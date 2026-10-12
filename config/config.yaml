@@ -1,7 +1,10 @@
 defaults:
   - model: default
-  - solver: gurobi
+  - solver: highs
   - paths: default
+  - override hydra/job_logging: none  # logging is set up by hydrogen_markets_balancing.logger
   - _self_
+
+log_level: INFO
 
 # Hydra writes each run's resolved config and logs to outputs/<date>/<time>/
