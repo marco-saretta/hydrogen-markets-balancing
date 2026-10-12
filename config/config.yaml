@@ -1,0 +1,7 @@
+defaults:
+  - model: default
+  - solver: gurobi
+  - paths: default
+  - _self_
+
+# Hydra writes each run's resolved config and logs to outputs/<date>/<time>/

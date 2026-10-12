@@ -1,0 +1,28 @@
+# Model settings. Add sets, parameters and switches here as the model grows.
+name: hydrogen_markets_balancing
+timesteps: 24
+
+
+nodes:
+  node_A:
+    cap:
+      upper: 100
+      lower: 0
+  node_B:
+    cap:
+      upper: 0
+      lower: -100
+
+
+linepack:
+  upper: 1000
+  lower: -1000
+
+players:
+  player_1:
+    node_A: 60
+    node_B: -60
+
+  player_2:
+    node_A: 30
+    node_B: -30
